@@ -1,0 +1,45 @@
+# Статический сайт: сборки нет, на FTP уходит корень репозитория.
+# Секреты — как в school-adconsult-ru, new-romanpivovarov-ru, go-adnomads и adnomads-org:
+#   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, REG_PATH
+# FTP-пользователь привязан к каталогу сайта www/kalibrovkasession.ru.
+# REG_PATH для него: ./
+name: Deploy kalibrovkasession.ru to REG.RU
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kalibrovkasession-ftp-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload website to REG.RU
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: ${{ secrets.REG_PATH }}
+          state-name: .ftp-deploy-sync-state.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.cursor/**
+            **/.ftp-deploy-sync-state.json
+            **/desktop.ini
+            **/*.md
