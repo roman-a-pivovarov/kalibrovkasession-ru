@@ -1,0 +1,24 @@
+---
+import Base from "../../layouts/Base.astro";
+import Discuss from "../../components/Discuss.astro";
+import { pages } from "../../content/copy";
+---
+
+<Base
+  title={pages.roman.title}
+  description={pages.roman.description}
+  path="/roman/"
+  context="general"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">О Романе</p>
+      <h1>{pages.roman.heading}</h1>
+      <p class="lede">{pages.roman.lede}</p>
+      <p class="lede">{pages.roman.work}</p>
+      <p><a class="text-link" href="/approach/">Наш подход</a></p>
+      <p><a class="text-link" href="/cases/">Кейсы и опыт</a></p>
+    </div>
+  </section>
+  <Discuss context="general" />
+</Base>

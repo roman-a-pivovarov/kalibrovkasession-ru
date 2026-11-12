@@ -1,0 +1,26 @@
+---
+import { ctaLabel, discussHref, nav, siteName, type InquiryContext } from "../content/site";
+
+interface Props {
+  path: string;
+  context: InquiryContext;
+}
+
+const { path, context } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="shell site-header__bar">
+    <a class="brand" href="/">{siteName}</a>
+    <nav class="nav" aria-label="Разделы">
+      {
+        nav.map((item) => (
+          <a href={item.href} aria-current={item.href === path ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <a class="button" href={discussHref()} data-context={context}>{ctaLabel}</a>
+  </div>
+</header>

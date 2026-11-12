@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+*.local
+.ftp-deploy-sync-state.json
+.cursor/
+
+# Закрытый реестр происхождения. Не коммитить и не класть в сборку.
+private/

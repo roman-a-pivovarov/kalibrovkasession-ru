@@ -1,0 +1,21 @@
+{
+  "name": "kalibrovkasession-ru",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node --experimental-strip-types scripts/check-published.ts && node scripts/check-content.mjs && astro build && node scripts/check-dist.mjs",
+    "preview": "astro preview",
+    "check:content": "node scripts/check-content.mjs",
+    "check:package": "node --experimental-strip-types scripts/check-published.ts",
+    "import:package": "node --experimental-strip-types scripts/import-public-package.ts",
+    "test": "node --experimental-strip-types --test src/content/public-package.test.ts"
+  },
+  "dependencies": {
+    "astro": "^7.4.11"
+  }
+}

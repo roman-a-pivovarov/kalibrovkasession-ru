@@ -1,0 +1,35 @@
+---
+import { nextRetreat, retreatIsPublic } from "../content/facts";
+import { pages } from "../content/copy";
+
+const retreat = nextRetreat;
+const visible = retreatIsPublic(retreat);
+---
+
+{
+  visible && (
+    <section class="block">
+      <div class="shell stack">
+        <h2>{pages.personal.eventTitle}</h2>
+        {retreat.title && <p>{retreat.title}</p>}
+        {retreat.place && <p>{retreat.place}</p>}
+        {retreat.dates && <p>{retreat.dates}</p>}
+        {retreat.enrollment && <p>{retreat.enrollment}</p>}
+        {retreat.included && retreat.included.length > 0 && (
+          <ul>
+            {retreat.included.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )}
+        {retreat.extraCosts && retreat.extraCosts.length > 0 && (
+          <ul>
+            {retreat.extraCosts.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}

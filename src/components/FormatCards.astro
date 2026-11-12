@@ -1,0 +1,16 @@
+---
+import { formats } from "../content/site";
+---
+
+<div class="cards">
+  <article class="card">
+    <h3>{formats.corporate.title}</h3>
+    <p>{formats.corporate.text}</p>
+    <a class="text-link" href={formats.corporate.href}>Для компании</a>
+  </article>
+  <article class="card">
+    <h3>{formats.personal.title}</h3>
+    <p>{formats.personal.text}</p>
+    <a class="text-link" href={formats.personal.href}>Для себя</a>
+  </article>
+</div>

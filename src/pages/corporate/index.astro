@@ -1,0 +1,80 @@
+---
+import Base from "../../layouts/Base.astro";
+import CaseList from "../../components/CaseList.astro";
+import Discuss from "../../components/Discuss.astro";
+import { corporateCases } from "../../content/cases";
+import { corporateProcess, pages } from "../../content/copy";
+import { corporatePricing, corporateVolumeStatement } from "../../content/facts";
+
+const stories = corporateCases();
+---
+
+<Base
+  title={pages.corporate.title}
+  description={pages.corporate.description}
+  path="/corporate/"
+  context="corporate"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">Для компании</p>
+      <h1>{pages.corporate.heading}</h1>
+      <p class="lede">{pages.corporate.lede}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.corporate.tasksTitle}</h2>
+      <p class="lede">{pages.corporate.tasksLede}</p>
+      <ul class="outcome-list">
+        {
+          pages.corporate.tasks.map((item) => (
+            <li>
+              <strong>{item.title}</strong>
+              {item.text}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.corporate.processTitle}</h2>
+      <ol class="steps">
+        {
+          corporateProcess.map((step, index) => (
+            <li>
+              <span>0{index + 1}</span>
+              {step}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell stack">
+      <h2>{pages.corporate.priceTitle}</h2>
+      <p class="lede">{corporatePricing.volumeStatement}</p>
+      {corporatePricing.dayStatement && <p>{corporatePricing.dayStatement}</p>}
+      {corporatePricing.projectStatement && <p>{corporatePricing.projectStatement}</p>}
+      <p>{corporatePricing.accompanimentStatement}</p>
+      <p>{corporateVolumeStatement()}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.corporate.casesTitle}</h2>
+      <p class="lede">{pages.corporate.casesLede}</p>
+      {stories.length > 0 && <CaseList variant="corporate" />}
+      <p><a class="text-link" href="/cases/">{pages.corporate.casesLink}</a></p>
+    </div>
+  </section>
+
+  <Discuss context="corporate" />
+</Base>

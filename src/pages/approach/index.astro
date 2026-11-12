@@ -1,0 +1,33 @@
+---
+import Base from "../../layouts/Base.astro";
+import Outcomes from "../../components/Outcomes.astro";
+import SampleList from "../../components/SampleList.astro";
+import Discuss from "../../components/Discuss.astro";
+import { pages } from "../../content/copy";
+---
+
+<Base
+  title={pages.approach.title}
+  description={pages.approach.description}
+  path="/approach/"
+  context="general"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">Наш подход</p>
+      <h1>{pages.approach.heading}</h1>
+      <p class="lede">{pages.approach.lede}</p>
+      <p class="lede">{pages.approach.role}</p>
+    </div>
+  </section>
+
+  <Outcomes />
+  <section class="block">
+    <div class="shell">
+      <SampleList />
+      <p><a class="text-link" href="/corporate/">Для компании</a></p>
+      <p><a class="text-link" href="/personal/">Для себя</a></p>
+    </div>
+  </section>
+  <Discuss context="general" />
+</Base>

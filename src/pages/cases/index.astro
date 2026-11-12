@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import CaseList from "../../components/CaseList.astro";
+import Discuss from "../../components/Discuss.astro";
+import { pages } from "../../content/copy";
+---
+
+<Base
+  title={pages.cases.title}
+  description={pages.cases.description}
+  path="/cases/"
+  context="general"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">Кейсы и опыт</p>
+      <h1>{pages.cases.heading}</h1>
+      <p class="lede">{pages.cases.lede}</p>
+      <p class="lede">{pages.cases.fields}</p>
+      <p class="lede">{pages.cases.formats}</p>
+      <CaseList variant="all" />
+    </div>
+  </section>
+  <Discuss context="general" />
+</Base>

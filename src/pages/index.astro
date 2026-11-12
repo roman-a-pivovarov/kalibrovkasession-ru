@@ -1,0 +1,90 @@
+---
+import Base from "../layouts/Base.astro";
+import FormatCards from "../components/FormatCards.astro";
+import Outcomes from "../components/Outcomes.astro";
+import CaseList from "../components/CaseList.astro";
+import Discuss from "../components/Discuss.astro";
+import ProgramTerms from "../components/ProgramTerms.astro";
+import { featuredCases } from "../content/cases";
+import { home, pages } from "../content/copy";
+import { formats } from "../content/site";
+
+const featured = featuredCases();
+---
+
+<Base
+  title={home.title}
+  description={home.description}
+  path="/"
+  context="general"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">Стратегические сессии</p>
+      <h1>{home.heroTitle}</h1>
+      <p class="lede">{home.heroLede}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{home.situationsTitle}</h2>
+      <p class="lede">{home.situationsLede}</p>
+      <ul class="outcome-list">
+        {
+          home.situations.map((item) => (
+            <li>
+              <strong>{item.title}</strong>
+              {item.text}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{home.formatsTitle}</h2>
+      <FormatCards />
+    </div>
+  </section>
+
+  <Outcomes />
+
+  <section class="block">
+    <div class="shell">
+      <h2>Наш подход</h2>
+      <p class="lede">{pages.approach.lede}</p>
+      <p><a class="text-link" href="/approach/">Подробнее о подходе</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{home.practiceTitle}</h2>
+      <p class="lede">{featured.length > 0 ? home.practiceLede : home.practiceEmptyLede}</p>
+      {featured.length > 0 && <CaseList variant="featured" />}
+      <p><a class="text-link" href="/cases/">{home.practiceLink}</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{home.romanTitle}</h2>
+      <p class="lede">{home.romanLede}</p>
+      <p><a class="text-link" href="/roman/">{home.romanLink}</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell stack">
+      <h2>{pages.personal.heading}</h2>
+      <p class="lede">{formats.personal.text}</p>
+      <ProgramTerms />
+      <p><a class="text-link" href="/personal/">Условия и программа</a></p>
+    </div>
+  </section>
+
+  <Discuss context="general" />
+</Base>

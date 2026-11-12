@@ -1,0 +1,28 @@
+---
+import { outcomes } from "../content/copy";
+
+interface Props {
+  showMore?: boolean;
+}
+
+const { showMore = false } = Astro.props;
+---
+
+<section class="block">
+  <div class="shell stack">
+    <h2>{outcomes.title}</h2>
+    <p class="lede">{outcomes.lede}</p>
+    <ul class="outcome-list">
+      {
+        outcomes.items.map((item) => (
+          <li>
+            <strong>{item.title}</strong>
+            {item.text}
+          </li>
+        ))
+      }
+    </ul>
+    <p>{outcomes.caveat}</p>
+    {showMore && <a class="text-link" href={outcomes.moreHref}>{outcomes.moreLabel}</a>}
+  </div>
+</section>

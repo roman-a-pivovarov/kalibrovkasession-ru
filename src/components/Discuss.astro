@@ -1,0 +1,51 @@
+---
+import { discuss } from "../content/copy";
+import {
+  contact,
+  formats,
+  mailHref,
+  type InquiryContext,
+} from "../content/site";
+import { participantExpensesStatement, personalFeeStatement } from "../content/facts";
+
+interface Props {
+  context: InquiryContext;
+}
+
+const { context } = Astro.props;
+const text =
+  context === "corporate"
+    ? discuss.corporate
+    : context === "personal"
+      ? discuss.personal
+      : discuss.general;
+---
+
+<section class="block" id="discuss">
+  <div class="shell stack">
+    <h2>{discuss.title}</h2>
+    <p class="lede">{text}</p>
+    {
+      context === "personal" && (
+        <>
+          <p>{personalFeeStatement()}</p>
+          <p>{participantExpensesStatement}</p>
+        </>
+      )
+    }
+    <p class="actions">
+      <a class="button" href={contact.telegramUrl}>Написать в Telegram</a>
+      <a class="button" href={mailHref(context)}>Написать на почту</a>
+    </p>
+    {
+      context === "general" && (
+        <p>
+          Формат можно выбрать и после сообщения. Если удобнее сначала прочитать условия, откройте
+          <a href={formats.corporate.href}>работу с компанией</a>
+          или
+          <a href={formats.personal.href}>персональную программу</a>.
+        </p>
+      )
+    }
+  </div>
+</section>

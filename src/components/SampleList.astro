@@ -1,0 +1,22 @@
+---
+import { publishedSamples, sampleStatusLabel } from "../content/samples";
+
+const items = publishedSamples();
+---
+
+{
+  items.length > 0 && (
+    <div class="case-list">
+      {items.map((item) => (
+        <article class="case">
+          <p class="meta">{sampleStatusLabel[item.status]}</p>
+          <h3>{item.title}</h3>
+          <p>{item.question}</p>
+          {item.image && <img src={item.image.src} alt={item.image.alt} />}
+          <p>{item.body}</p>
+          <p>{item.purpose}</p>
+        </article>
+      ))}
+    </div>
+  )
+}

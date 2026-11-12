@@ -1,0 +1,54 @@
+---
+import Base from "../../layouts/Base.astro";
+import Discuss from "../../components/Discuss.astro";
+import ProgramTerms from "../../components/ProgramTerms.astro";
+import RetreatDetails from "../../components/RetreatDetails.astro";
+import { pages } from "../../content/copy";
+import { publicSequenceLabels } from "../../content/facts";
+
+const sequence = publicSequenceLabels();
+---
+
+<Base
+  title={pages.personal.title}
+  description={pages.personal.description}
+  path="/personal/"
+  context="personal"
+>
+  <section class="hero">
+    <div class="shell">
+      <p class="kicker">Для себя</p>
+      <h1>{pages.personal.heading}</h1>
+      <p class="lede">{pages.personal.lede}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell stack">
+      <h2>{pages.personal.linkTitle}</h2>
+      <p class="lede">{pages.personal.linkLede}</p>
+      {
+        sequence.length > 0 && (
+          <ol class="steps">
+            {sequence.map((label, index) => (
+              <li>
+                <span>0{index + 1}</span>
+                {label}
+              </li>
+            ))}
+          </ol>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.personal.termsTitle}</h2>
+      <ProgramTerms />
+    </div>
+  </section>
+
+  <RetreatDetails />
+  <Discuss context="personal" />
+</Base>
