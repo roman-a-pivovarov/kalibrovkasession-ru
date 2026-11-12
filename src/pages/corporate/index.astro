@@ -4,7 +4,12 @@ import CaseList from "../../components/CaseList.astro";
 import Discuss from "../../components/Discuss.astro";
 import { corporateCases } from "../../content/cases";
 import { corporateProcess, pages } from "../../content/copy";
-import { corporatePricing, corporateVolumeStatement } from "../../content/facts";
+import {
+  corporateDayStatement,
+  corporateProjectStatement,
+  corporateRangesNote,
+  corporateVolumeStatement,
+} from "../../content/facts";
 
 const stories = corporateCases();
 ---
@@ -43,12 +48,13 @@ const stories = corporateCases();
   <section class="block">
     <div class="shell">
       <h2>{pages.corporate.processTitle}</h2>
-      <ol class="steps">
+      <ol class="steps steps--stack">
         {
           corporateProcess.map((step, index) => (
             <li>
               <span>0{index + 1}</span>
-              {step}
+              <strong>{step.title}</strong>
+              <p>{step.text}</p>
             </li>
           ))
         }
@@ -59,17 +65,16 @@ const stories = corporateCases();
   <section class="block">
     <div class="shell stack">
       <h2>{pages.corporate.priceTitle}</h2>
-      <p class="lede">{corporatePricing.volumeStatement}</p>
-      {corporatePricing.dayStatement && <p>{corporatePricing.dayStatement}</p>}
-      {corporatePricing.projectStatement && <p>{corporatePricing.projectStatement}</p>}
-      <p>{corporatePricing.accompanimentStatement}</p>
-      <p>{corporateVolumeStatement()}</p>
+      <p>{corporateDayStatement()}</p>
+      <p>{corporateProjectStatement()}</p>
+      <p>{corporateRangesNote()}</p>
     </div>
   </section>
 
   <section class="block">
     <div class="shell">
       <h2>{pages.corporate.casesTitle}</h2>
+      <p class="lede">{corporateVolumeStatement()}</p>
       <p class="lede">{pages.corporate.casesLede}</p>
       {stories.length > 0 && <CaseList variant="corporate" />}
       <p><a class="text-link" href="/cases/">{pages.corporate.casesLink}</a></p>

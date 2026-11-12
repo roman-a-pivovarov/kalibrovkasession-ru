@@ -18,6 +18,14 @@ for (const match of facts.matchAll(/"([^"\n]*\d[^"\n]*)"/g)) {
   if (value.length >= 2 && value.length <= 48) tokens.add(value);
 }
 
+function includesFact(text, token) {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (/^\d+$/.test(token)) {
+    return new RegExp(`(?<![\\p{L}\\p{N}_-])${escaped}(?![\\p{L}\\p{N}_-])`, "u").test(text);
+  }
+  return text.includes(token);
+}
+
 function walk(dir) {
   for (const name of readdirSync(dir)) {
     const full = path.join(dir, name);
@@ -35,7 +43,7 @@ function walk(dir) {
       process.exitCode = 1;
     }
     for (const token of tokens) {
-      if (token && text.includes(token)) {
+      if (token && includesFact(text, token)) {
         console.error(`Повторяющийся факт «${token}» вне ${factsPath}: ${rel}`);
         process.exitCode = 1;
       }

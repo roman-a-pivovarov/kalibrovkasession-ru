@@ -11,9 +11,12 @@ const visible = retreatIsPublic(retreat);
     <section class="block">
       <div class="shell stack">
         <h2>{pages.personal.eventTitle}</h2>
+        {(retreat.place || retreat.dates) && (
+          <p>
+            Ближайший ориентир — {[retreat.place, retreat.dates].filter(Boolean).join(", ")}.
+          </p>
+        )}
         {retreat.title && <p>{retreat.title}</p>}
-        {retreat.place && <p>{retreat.place}</p>}
-        {retreat.dates && <p>{retreat.dates}</p>}
         {retreat.enrollment && <p>{retreat.enrollment}</p>}
         {retreat.included && retreat.included.length > 0 && (
           <ul>

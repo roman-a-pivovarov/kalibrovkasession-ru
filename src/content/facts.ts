@@ -28,7 +28,7 @@ export const personalFormatStatement =
 
 /**
  * Ближайший выезд. Пустые поля не показываются.
- * Даты не переносятся со старого сайта и остаются пустыми, пока их отдельно не согласуют.
+ * Место и месяц подтверждены. Точные даты, набор и логистика не публикуются.
  */
 export type NextRetreat = {
   title: string | null;
@@ -41,8 +41,8 @@ export type NextRetreat = {
 
 export const nextRetreat: NextRetreat = {
   title: null,
-  place: null,
-  dates: null,
+  place: "Шри-Ланка",
+  dates: "декабрь 2026",
   enrollment: null,
   included: null,
   extraCosts: null,
@@ -59,31 +59,45 @@ export function retreatIsPublic(retreat: NextRetreat): boolean {
   );
 }
 
-/**
- * Корпоративная стоимость. Числовой диапазон и формулировка дня
- * отличаются от полного проекта и появятся здесь только из согласованного пакета.
- */
+/** День и полный проект — разные ориентиры. Суммы не складываются. */
 export const corporatePricing = {
-  volumeStatement:
-    "Стоимость корпоративного проекта определяется его объёмом: подготовка, проведение, обработка результатов и сопровождение.",
-  accompanimentStatement: "Сопровождение после сессии согласуем отдельно.",
-  dayStatement: null as string | null,
-  projectStatement: null as string | null,
-};
+  dayMinRub: 160_000,
+  dayMaxRub: 480_000,
+  projectMinRub: 400_000,
+  projectMaxRub: 800_000,
+  accompanimentStatement:
+    "После сессии возможны контрольная встреча или регулярное сопровождение. Это отдельная договорённость.",
+} as const;
 
-/** Авторский ориентир объёма, не подсчёт архива и не лимит мест. */
+function thousand(amount: number): string {
+  return String(Math.round(amount / 1000));
+}
+
+export function corporateDayStatement(): string {
+  return `Ориентир за день — ${thousand(corporatePricing.dayMinRub)}–${thousand(corporatePricing.dayMaxRub)} тыс. ₽. Диапазон зависит от задачи и глубины подготовки.`;
+}
+
+export function corporateProjectStatement(): string {
+  return `Ориентир для типового проекта — ${thousand(corporatePricing.projectMinRub)}–${thousand(corporatePricing.projectMaxRub)} тыс. ₽. В расчёт входят подготовка, проведение, обработка результатов и согласованная последующая работа.`;
+}
+
+export function corporateRangesNote(): string {
+  return "День и проект — два разных ориентира. Они не складываются в одну сумму.";
+}
+
+/** Авторский ориентир объёма. На странице — только сама формулировка. */
 export const corporatePractice = {
   usualSessionsPerYear: "5–6",
 } as const;
 
 export function corporateVolumeStatement(): string {
-  return `В течение года я обычно провожу ${corporatePractice.usualSessionsPerYear} корпоративных сессий. Это мой обычный объём работы, а не ограничение мест и не подсчёт архива.`;
+  return `В течение года я обычно провожу ${corporatePractice.usualSessionsPerYear} корпоративных сессий.`;
 }
 
 export const personalSequence = [
   { id: "personal", publicLabel: "Личные ориентиры" },
-  { id: "core-id", publicLabel: "Роль собственника" },
-  { id: "product-sales", publicLabel: "Продукт и продажи" },
+  { id: "core-id", publicLabel: "Суть и идентичность бизнеса" },
+  { id: "product-sales", publicLabel: "Продукты и продажи" },
   { id: "resource-resolution", publicLabel: "Ресурсы и решения" },
 ] as const;
 

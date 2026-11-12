@@ -6,7 +6,6 @@ import {
   mailHref,
   type InquiryContext,
 } from "../content/site";
-import { participantExpensesStatement, personalFeeStatement } from "../content/facts";
 
 interface Props {
   context: InquiryContext;
@@ -25,14 +24,6 @@ const text =
   <div class="shell stack">
     <h2>{discuss.title}</h2>
     <p class="lede">{text}</p>
-    {
-      context === "personal" && (
-        <>
-          <p>{personalFeeStatement()}</p>
-          <p>{participantExpensesStatement}</p>
-        </>
-      )
-    }
     <p class="actions">
       <a class="button" href={contact.telegramUrl}>Написать в Telegram</a>
       <a class="button" href={mailHref(context)}>Написать на почту</a>

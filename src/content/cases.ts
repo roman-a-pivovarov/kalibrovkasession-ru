@@ -1,5 +1,6 @@
 import deliveredRaw from "./delivered-cases.json";
 import editorialRaw from "./editorial.json";
+import orderRaw from "./case-order.json";
 import {
   assertHomeSelection,
   parseDeliveredFile,
@@ -31,17 +32,31 @@ const editorial = unwrap(parseEditorial(editorialRaw));
  * Выбор для главной берётся только из editorial.json и импортом не заменяется.
  * Число записей не показывается как число проведённых сессий.
  */
-export const cases: CaseStudy[] = withEditorial(delivered.records, editorial);
+const catalogOrder = new Map(orderRaw.map((id, index) => [id, index]));
+
+function byCatalog(list: readonly CaseStudy[]): CaseStudy[] {
+  return [...list].sort((left, right) => {
+    const leftRank = catalogOrder.get(left.id) ?? catalogOrder.size;
+    const rightRank = catalogOrder.get(right.id) ?? catalogOrder.size;
+    if (leftRank !== rightRank) return leftRank - rightRank;
+    return left.id.localeCompare(right.id);
+  });
+}
+
+export const cases: CaseStudy[] = byCatalog(withEditorial(delivered.records, editorial));
 
 const selectionError = assertHomeSelection(cases);
 if (selectionError) throw new Error(selectionError);
 
 export function featuredCases(list: readonly CaseStudy[] = cases): CaseStudy[] {
+  const rank = new Map(editorial.featuredIds.map((id, index) => [id, index]));
   const picked = list.filter((item) => item.featured);
   if (picked.length > 3) {
     throw new Error("На главной не больше трёх выбранных историй.");
   }
-  return picked;
+  return picked.sort(
+    (left, right) => (rank.get(left.id) ?? 0) - (rank.get(right.id) ?? 0),
+  );
 }
 
 export function corporateCases(list: readonly CaseStudy[] = cases): CaseStudy[] {

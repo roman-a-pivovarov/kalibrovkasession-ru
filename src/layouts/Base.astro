@@ -13,10 +13,12 @@ interface Props {
 
 const { title, description, path, context } = Astro.props;
 const canonical = new URL(path, Astro.site);
+const palette = Astro.url.searchParams.get("palette");
+const paletteName = palette === "green" || palette === "burgundy" ? palette : undefined;
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-palette={paletteName}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

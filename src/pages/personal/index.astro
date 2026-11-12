@@ -4,9 +4,7 @@ import Discuss from "../../components/Discuss.astro";
 import ProgramTerms from "../../components/ProgramTerms.astro";
 import RetreatDetails from "../../components/RetreatDetails.astro";
 import { pages } from "../../content/copy";
-import { publicSequenceLabels } from "../../content/facts";
-
-const sequence = publicSequenceLabels();
+import { personalSequence } from "../../content/facts";
 ---
 
 <Base
@@ -24,21 +22,20 @@ const sequence = publicSequenceLabels();
   </section>
 
   <section class="block">
-    <div class="shell stack">
+    <div class="shell">
       <h2>{pages.personal.linkTitle}</h2>
       <p class="lede">{pages.personal.linkLede}</p>
-      {
-        sequence.length > 0 && (
-          <ol class="steps">
-            {sequence.map((label, index) => (
-              <li>
-                <span>0{index + 1}</span>
-                {label}
-              </li>
-            ))}
-          </ol>
-        )
-      }
+      <ol class="steps steps--stack">
+        {
+          personalSequence.map((step, index) => (
+            <li>
+              <span>0{index + 1}</span>
+              <strong>{step.publicLabel}</strong>
+              <p>{pages.personal.levels[step.id]}</p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 

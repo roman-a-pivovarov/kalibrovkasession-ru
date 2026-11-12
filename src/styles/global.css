@@ -11,7 +11,7 @@
   --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --measure: 40rem;
   --page: 72rem;
-  --space: clamp(4.5rem, 8vw, 7rem);
+  --space: clamp(2.75rem, 5vw, 4.25rem);
   color-scheme: light;
   background: var(--bg);
   color: var(--ink);
@@ -40,6 +40,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
 }
@@ -145,7 +146,11 @@ a:hover {
 }
 
 .hero {
-  padding-top: clamp(3rem, 7vw, 5.5rem);
+  padding-top: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.block.tight {
+  padding-bottom: 0;
 }
 
 .kicker,
@@ -159,17 +164,47 @@ a:hover {
 
 h1,
 h2,
+h3,
+p,
+li {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
 h3 {
   font-family: var(--serif);
   font-weight: 500;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.08;
 }
 
 h1 {
   margin: 0;
-  max-width: 10ch;
-  font-size: clamp(3.4rem, 9vw, 6.4rem);
+  max-width: 14ch;
+  font-size: clamp(2.7rem, 6.4vw, 4.5rem);
+}
+
+.hero-subtitle {
+  margin: 0.75rem 0 0;
+  max-width: 22ch;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.hero-actions .button {
+  flex: 1 1 16rem;
+  justify-content: center;
 }
 
 h2 {
@@ -265,6 +300,30 @@ h3 {
   list-style: none;
 }
 
+.steps--stack {
+  grid-template-columns: 1fr;
+  gap: 1.35rem;
+  max-width: 46rem;
+}
+
+.steps--stack strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.steps--stack p {
+  margin: 0.4rem 0 0;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 .steps li {
   padding-top: 0.8rem;
   border-top: 1px solid var(--ink);
@@ -286,6 +345,16 @@ h3 {
 .case {
   padding: 1.4rem 0;
   border-top: 1px solid var(--line);
+  scroll-margin-top: 1.25rem;
+}
+
+.case--lead {
+  padding-bottom: 0.6rem;
+}
+
+.case-task {
+  margin-top: 0;
+  font-weight: 600;
 }
 
 .case p {
@@ -313,8 +382,13 @@ h3 {
 
 @media (max-width: 800px) {
   .cards,
-  .steps {
+  .steps,
+  .filter-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-actions .button {
+    flex-basis: 100%;
   }
 
   .nav {

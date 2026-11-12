@@ -1,9 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Outcomes from "../../components/Outcomes.astro";
-import SampleList from "../../components/SampleList.astro";
 import Discuss from "../../components/Discuss.astro";
 import { pages } from "../../content/copy";
+import { formats } from "../../content/site";
 ---
 
 <Base
@@ -17,16 +17,54 @@ import { pages } from "../../content/copy";
       <p class="kicker">Наш подход</p>
       <h1>{pages.approach.heading}</h1>
       <p class="lede">{pages.approach.lede}</p>
-      <p class="lede">{pages.approach.role}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.approach.pillarsTitle}</h2>
+      <ul class="outcome-list">
+        {
+          pages.approach.pillars.map((item) => (
+            <li>
+              <strong>{item.title}</strong>
+              {item.text}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="shell">
+      <h2>{pages.approach.filtersTitle}</h2>
+      <div class="filter-grid">
+        {
+          pages.approach.filters.map((item) => (
+            <article class="card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="lede">{pages.approach.refusal}</p>
+    </div>
+  </section>
+
+  <section class="block tight">
+    <div class="shell">
+      <p class="lede">{pages.approach.bridge}</p>
     </div>
   </section>
 
   <Outcomes />
+
   <section class="block">
-    <div class="shell">
-      <SampleList />
-      <p><a class="text-link" href="/corporate/">Для компании</a></p>
-      <p><a class="text-link" href="/personal/">Для себя</a></p>
+    <div class="shell actions">
+      <a class="button" href={formats.corporate.href}>{formats.corporate.entry}</a>
+      <a class="button" href={formats.personal.href}>{formats.personal.entry}</a>
     </div>
   </section>
   <Discuss context="general" />
